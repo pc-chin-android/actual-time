@@ -10,16 +10,16 @@
         android:id="@+id/sys_time_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:gravity="center"
         android:text="@string/time_sys"
-        android:textSize="30sp" />
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/sys_time_int"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
@@ -30,16 +30,16 @@
         android:id="@+id/long_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:gravity="center"
         android:text="@string/longitude"
-        android:textSize="30sp" />
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/long_int"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
@@ -50,16 +50,16 @@
         android:id="@+id/act_time_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:gravity="center"
         android:text="@string/time_act"
-        android:textSize="30sp" />
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/act_time_int"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
@@ -70,16 +70,16 @@
         android:id="@+id/diff_time_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:gravity="center"
         android:text="@string/time_diff"
-        android:textSize="30sp" />
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/diff_time_int"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
@@ -93,25 +93,26 @@
         android:orientation="horizontal">
 
         <Space
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.4"
             tools:ignore="NestedWeights" />
 
         <Button
             android:id="@+id/abt_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.2"
             android:background="@android:color/transparent"
             android:gravity="center"
+            android:onClick="onAbtBtnSelected"
             android:text="@string/about"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Space
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.4" />
     </LinearLayout>
