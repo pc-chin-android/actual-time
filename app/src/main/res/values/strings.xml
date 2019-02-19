@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Actual Time</string>
+    <string name="about">About</string>
+    <string name="time_sys">System Time</string>
+    <string name="longitude">Current Longitude</string>
+    <string name="time_act">Calculated Time</string>
+    <string name="time_diff">Time Difference</string>
+    <string name="unknown">Unknown</string>
 </resources>
