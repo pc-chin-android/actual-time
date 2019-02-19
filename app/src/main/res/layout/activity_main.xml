@@ -23,7 +23,7 @@
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
@@ -63,7 +63,7 @@
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
@@ -83,7 +83,7 @@
         android:fontFamily="@font/orbitron_bold"
         android:gravity="center"
         android:text="@string/unknown"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <LinearLayout

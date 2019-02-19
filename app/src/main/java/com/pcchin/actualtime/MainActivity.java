@@ -9,7 +9,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private boolean doubleBackToExitPressedOnce = false;
-    long currentLong;
+    private TimeThread timeThread;
+    private LocationThread locationThread;
+    // CurrentLong must not be valid val (-180 < currentVal < 180)
+    double currentLong = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +23,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+
+        boolean retryTime = true;
+        while (retryTime) {
+            try {
+                this.timeThread.setRunning(false);
+                this.timeThread.join();
+                retryTime = false;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        boolean retryLoc = true;
+        while (retryLoc) {
+            try {
+                this.locationThread.setRunning(false);
+                this.locationThread.join();
+                retryLoc = false;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        this.timeThread = new TimeThread(this);
+        this.timeThread.setRunning(true);
+        this.timeThread.start();
+
+        this.locationThread = new LocationThread(this);
+        this.locationThread.setRunning(true);
+        this.locationThread.start();
     }
 
     public void onAbtBtnSelected(View view) {
