@@ -8,6 +8,7 @@
     <string name="unknown">Unknown</string>
     <string name="app_info">&#169; 2019&#8211;2019 PC Chin</string>
     <string name="license">License</string>
+    <string name="accuracy">To improve accuracy, turn on GPS</string>
     <string name="license_text">Licensed under the Apache License, Version 2.0 (the "License");
         &lt;br/&gt;&lt;br/&gt;
         you may not use this file except in compliance with the License.
