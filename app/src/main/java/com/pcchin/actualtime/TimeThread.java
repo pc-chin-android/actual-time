@@ -1,8 +1,12 @@
 package com.pcchin.actualtime;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
+import android.text.format.DateFormat;
 import android.widget.TextView;
 
 class TimeThread extends Thread {
@@ -20,33 +24,39 @@ class TimeThread extends Thread {
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat dtFormat;
+                    if (DateFormat.is24HourFormat(mainActivity)) {
+                        dtFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+                    } else {
+                        dtFormat = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
+                    }
+                    Date currentDate = new Date();
 
                     TextView sysTime = mainActivity.findViewById(R.id.sys_time_int);
-                    sysTime.setText(String.format(Locale.ENGLISH, "%02d:%02d:%02d",
-                            calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND)));
+                    sysTime.setText(dtFormat.format(currentDate));
 
                     if (mainActivity.currentLong >= -180 && mainActivity.currentLong <= 180) {
                         // Calculate current time in secs based on current coordinates
-                        double currentSecs = (calendar.get(Calendar.HOUR_OF_DAY) * 60 * 60) +
-                                (calendar.get(Calendar.MINUTE) * 60) + calendar.get(Calendar.SECOND);
-                        double diffSecs = (mainActivity.currentLong / 180) * 60 * 60 * 12;
-                        currentSecs += diffSecs;
-                        if (currentSecs < 0) {
-                            currentSecs += 60 * 60 * 24;
-                        }
+                        double diffSecs = mainActivity.currentLong / 180 * 60 * 60 * 12
+                                - ((double) TimeZone.getDefault().getOffset(Calendar.ZONE_OFFSET) / 1000);
+                        Calendar newCal = Calendar.getInstance();
+                        newCal.setTime(currentDate);
+                        newCal.add(Calendar.SECOND, (int) diffSecs);
 
-                        // Convert them into hours, mins, secs
-                        int[] currentTimeArray = convertTime(currentSecs);
-                        int[] diffTimeArray = convertTime(diffSecs);
+                        double hrs;
+                        if (diffSecs > 0) {
+                            hrs = Math.floor(diffSecs / 3600);
+                        } else {
+                            hrs = Math.ceil(diffSecs / 3600);
+                        }
+                        double mins = Math.floor((Math.abs(diffSecs) - (Math.abs(hrs) * 3600)) / 60);
+                        double secs = Math.floor(Math.abs(diffSecs) - (Math.abs(hrs) * 3600) - (mins * 60));
 
                         // Set time
                         TextView actTime = mainActivity.findViewById(R.id.act_time_int);
-                        actTime.setText(String.format(Locale.ENGLISH, "%02d:%02d:%02d",
-                                currentTimeArray[0], currentTimeArray[1], currentTimeArray[2]));
+                        actTime.setText(dtFormat.format(newCal.getTime()));
                         TextView diffTime = mainActivity.findViewById(R.id.diff_time_int);
-                        diffTime.setText(String.format(Locale.ENGLISH, "%03d:%02d:%02d",
-                                diffTimeArray[0], diffTimeArray[1], diffTimeArray[2]));
+                        diffTime.setText(String.format(Locale.ENGLISH, "%03d:%02d:%02d",(int) hrs, (int) mins, (int) secs));
                     }
                 }
             });
@@ -63,16 +73,5 @@ class TimeThread extends Thread {
 
     void setRunning(boolean running) {
         this.running = running;
-    }
-
-    private static int[] convertTime(double secs) {
-        int[] returnInt = new int[3];
-        returnInt[0] = (int) Math.floor(secs / 60 / 60);
-        returnInt[1] = (int) Math.floor((secs - returnInt[0] * 60 * 60) / 60);
-        returnInt[2] = (int) Math.floor(secs - (returnInt[0] * 60 * 60) - (returnInt[1] * 60));
-        if (returnInt[0] >= 24) {
-            returnInt[0] -= 24;
-        }
-        return returnInt;
     }
 }

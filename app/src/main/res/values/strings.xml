@@ -22,5 +22,9 @@
         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
         See the License for the specific language governing permissions and
         limitations under the License.
+        &lt;br/&gt;&lt;br/&gt;
+        Libraries used:
+        &lt;br/&gt;&lt;a href="https://github.com/JakeWharton/ThreeTenABP"&gt;ThreeTen Android Backport - Jake Wharton
+        &lt;/a&gt;
     </string>
 </resources>
