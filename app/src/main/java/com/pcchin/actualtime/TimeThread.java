@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import android.annotation.SuppressLint;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ class TimeThread extends Thread {
         while (this.running) {
             long tempTime = System.nanoTime()/1000;
             mainActivity.runOnUiThread(new Runnable() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void run() {
                     SimpleDateFormat dtFormat;
@@ -45,9 +47,9 @@ class TimeThread extends Thread {
 
                         double hrs;
                         if (diffSecs > 0) {
-                            hrs = Math.floor(diffSecs / 3600);
+                            hrs = Math.abs(Math.floor(diffSecs / 3600));
                         } else {
-                            hrs = Math.ceil(diffSecs / 3600);
+                            hrs = Math.abs(Math.ceil(diffSecs / 3600));
                         }
                         double mins = Math.floor((Math.abs(diffSecs) - (Math.abs(hrs) * 3600)) / 60);
                         double secs = Math.floor(Math.abs(diffSecs) - (Math.abs(hrs) * 3600) - (mins * 60));
@@ -56,7 +58,11 @@ class TimeThread extends Thread {
                         TextView actTime = mainActivity.findViewById(R.id.act_time_int);
                         actTime.setText(dtFormat.format(newCal.getTime()));
                         TextView diffTime = mainActivity.findViewById(R.id.diff_time_int);
-                        diffTime.setText(String.format(Locale.ENGLISH, "%03d:%02d:%02d",(int) hrs, (int) mins, (int) secs));
+                        if (diffSecs >= 0) {
+                            diffTime.setText(String.format(Locale.ENGLISH, "%02d:%02d:%02d", (int) hrs, (int) mins, (int) secs));
+                        } else {
+                            diffTime.setText(String.format(Locale.ENGLISH, "-%02d:%02d:%02d", (int) hrs, (int) mins, (int) secs));
+                        }
                     }
                 }
             });
